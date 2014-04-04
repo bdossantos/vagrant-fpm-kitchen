@@ -13,12 +13,12 @@ class NodeJS < FPM::Cookery::Recipe
   depends       'openssl'
 
   def build
-    configure
+    configure :prefix => prefix
     make
   end
 
   def install
-    make :install
+    make :install, 'DESTDIR' => destdir
     man1.install Dir['local/share/man/man1/node.1']
     system 'gzip', '/usr/local/share/man/man1/node.1'
   end
