@@ -1,2 +1,3 @@
 recipes/*/cache
 recipes/*/pkg
+recipes/*/tmp*
