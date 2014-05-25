@@ -1,0 +1,86 @@
+#!/usr/bin/env sh
+#
+# chkconfig: - 55 45
+# description:  Twitter's twemproxy nutcracker
+# processname: nutcracker
+# config: /etc/default/nutcracker
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+TWEMPROXY_EXEC='/usr/sbin/nutcracker'
+TWEMPROXY_PID='/var/run/twemproxy.pid'
+TWEMPROXY_CONF='/etc/twemproxy/nutcracker.root.yml'
+TWEMPROXY_STATS_PORT=22222
+TWEMPROXY_STATS_INTERVAL=30000
+TWEMPROXY_OPTIONS="-c ${TWEMPROXY_CONF} -p ${TWEMPROXY_PID} -s ${TWEMPROXY_STATS_PORT} -i ${TWEMPROXY_STATS_INTERVAL} -d"
+
+if [ -f /etc/default/nutcracker ];then
+  . /etc/default/nutcracker
+fi
+
+checkconfig() {
+  if [ ! -f "${TWEMPROXY_CONF}" ]; then
+    echo "${TWEMPROXY_CONF} does not exist!"
+    return 1
+  fi
+
+  echo "Checking ${TWEMPROXY_CONF}"
+  ${TWEMPROXY_EXEC} -t -c ${TWEMPROXY_CONF}
+}
+
+start() {
+  echo "Starting Twemproxy server"
+
+  test -n ${MAX_FDS} && ulimit -n ${MAX_FDS} >/dev/null
+  touch $TWEMPROXY_PID && chown nobody:nogroup $TWEMPROXY_PID
+
+  start-stop-daemon --start \
+                    --quiet \
+                    --pidfile ${TWEMPROXY_PID} \
+                    --make-pidfile \
+                    --umask 007 \
+                    --chuid nobody:nogroup \
+                    --startas ${TWEMPROXY_EXEC} -- ${TWEMPROXY_OPTIONS}
+
+  return $?
+}
+
+stop() {
+  echo "Stopping Twemproxy server"
+  start-stop-daemon --stop --quiet --pidfile "${TWEMPROXY_PID}"
+
+  retval=$?
+  if [ $retval -eq 0 ] ; then
+    rm -f "${TWEMPROXY_PID}"
+  fi
+}
+
+restart() {
+  checkconfig || { echo "Please fix your ${TWEMPROXY_CONF} first"; exit 1; }
+  stop
+  start
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status_of_proc -p ${PIDFILE} "${DAEMON}" twemproxy && exit 0 || exit $?
+    ;;
+  restart|reload)
+    restart
+    ;;
+  checkconfig)
+    checkconfig
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart|reload|checkconfig}"
+    exit 3
+esac
+
+exit $?
