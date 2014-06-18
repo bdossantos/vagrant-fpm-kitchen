@@ -19,6 +19,7 @@ class TwemProxy < FPM::Cookery::Recipe
   end
 
   def install
+    var('log/twemproxy').mkdir
     (etc/'init.d').install_p(workdir/'nutcracker.init', 'twemproxy')
     (etc/'twemproxy').install_p(workdir/'nutcracker.root.yml', 'nutcracker.root.yml')
     make :install, 'DESTDIR' => destdir
