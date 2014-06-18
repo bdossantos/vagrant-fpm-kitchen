@@ -11,10 +11,12 @@
 TWEMPROXY_EXEC='/usr/sbin/nutcracker'
 TWEMPROXY_PID='/var/run/twemproxy.pid'
 TWEMPROXY_CONF='/etc/twemproxy/nutcracker.root.yml'
+TWEMPROXY_VERBOSITY=5
+TWEMPROXY_OUTPUT='/var/log/twemproxy/twemproxy.log'
 TWEMPROXY_STATS_ADDR=127.0.0.1
 TWEMPROXY_STATS_PORT=22222
 TWEMPROXY_STATS_INTERVAL=30000
-TWEMPROXY_OPTIONS="-c ${TWEMPROXY_CONF} -p ${TWEMPROXY_PID} -s ${TWEMPROXY_STATS_PORT} -a ${TWEMPROXY_STATS_ADDR} -i ${TWEMPROXY_STATS_INTERVAL} -d"
+TWEMPROXY_OPTIONS="-c ${TWEMPROXY_CONF} -p ${TWEMPROXY_PID} -s ${TWEMPROXY_STATS_PORT} -a ${TWEMPROXY_STATS_ADDR} -i ${TWEMPROXY_STATS_INTERVAL} -v ${TWEMPROXY_VERBOSITY} -o ${TWEMPROXY_OUTPUT} -d"
 
 if [ -f /etc/default/nutcracker ];then
   . /etc/default/nutcracker
@@ -35,6 +37,7 @@ start() {
 
   test -n ${MAX_FDS} && ulimit -n ${MAX_FDS} >/dev/null
   touch $TWEMPROXY_PID && chown nobody:nogroup $TWEMPROXY_PID
+  chown nobody:nogroup /var/log/twemproxy
 
   start-stop-daemon --start \
                     --quiet \
