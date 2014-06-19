@@ -18,7 +18,7 @@
 TWEMPROXY_EXEC='/usr/sbin/nutcracker'
 TWEMPROXY_PID='/var/run/twemproxy.pid'
 TWEMPROXY_CONF='/etc/twemproxy/nutcracker.root.yml'
-TWEMPROXY_VERBOSITY=5
+TWEMPROXY_VERBOSITY=4
 TWEMPROXY_OUTPUT='/var/log/twemproxy/twemproxy.log'
 TWEMPROXY_STATS_ADDR=127.0.0.1
 TWEMPROXY_STATS_PORT=22222
