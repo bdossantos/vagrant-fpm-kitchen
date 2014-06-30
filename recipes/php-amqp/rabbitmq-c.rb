@@ -1,0 +1,1 @@
+../rabbitmq-c/0.5.0.rb
