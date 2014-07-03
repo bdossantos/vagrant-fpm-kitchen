@@ -73,6 +73,12 @@ restart() {
   start
 }
 
+reload() {
+  log_daemon_msg "Reloading Twemproxy server"
+  start-stop-daemon --stop --signal HUP --quiet --pidfile "${TWEMPROXY_PID}" \
+                    --exec ${TWEMPROXY_EXEC}
+}
+
 case "$1" in
   start)
     start
@@ -83,8 +89,11 @@ case "$1" in
   status)
     status_of_proc -p ${PIDFILE} "${DAEMON}" twemproxy && exit 0 || exit $?
     ;;
-  restart|reload)
+  restart)
     restart
+    ;;
+  reload)
+    reload
     ;;
   checkconfig)
     checkconfig
