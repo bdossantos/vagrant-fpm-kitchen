@@ -13,7 +13,7 @@ class TwemProxy < FPM::Cookery::Recipe
 
   def build
     cleanenv_safesystem 'autoreconf -fvi'
-    configure :prefix => prefix, :'enable-debug' => 'log'
+    configure :prefix => prefix
     make
   end
 
