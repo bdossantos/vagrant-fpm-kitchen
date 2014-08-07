@@ -3,10 +3,9 @@ class TwemProxy < FPM::Cookery::Recipe
 
   name 'twemproxy'
   version '0.3.0'
-  revision 0
+  revision 1
   homepage 'https://github.com/twitter/twemproxy'
-  source "https://github.com/twitter/twemproxy/archive/v#{version}.tar.gz"
-  sha256 'daf54481035d92506953c6ace6bedd84b7b04696b9e4af147eb318053de225e4'
+  source   'https://github.com/twitter/twemproxy', :with => :git, :sha => '79441177e981ec4d68e2d1e2d94fd9eb36594455'
 
   section 'net'
 
