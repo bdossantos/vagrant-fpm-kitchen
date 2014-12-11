@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # Installed by the go package.
 
 export GOROOT=/usr/local/go
