@@ -2,10 +2,12 @@ class TwemProxy < FPM::Cookery::Recipe
   description 'A fast, light-weight proxy for memcached and redis'
 
   name 'twemproxy'
-  version '0.3.0'
-  revision 2
+  version '0.4.0'
+  revision 1
   homepage 'https://github.com/twitter/twemproxy'
-  source   'https://github.com/twitter/twemproxy', :with => :git, :sha => '79441177e981ec4d68e2d1e2d94fd9eb36594455'
+  source   'https://github.com/twitter/twemproxy', \
+           :with => :git, \
+           :tag => 'v0.4.0'
 
   section 'net'
 
