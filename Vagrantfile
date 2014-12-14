@@ -13,7 +13,8 @@ Vagrant.configure(2) do |config|
     puppet.manifest_file = 'requirements.pp'
   end
 
+  recipe = ENV['RECIPE'].nil? ? nil : "recipe=#{ENV['RECIPE']}"
   config.vm.provision 'shell', inline: 'cd /vagrant && ' \
                                        'bundle install  && ' \
-                                       'rake build'
+                                       "rake build #{recipe}"
 end

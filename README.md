@@ -12,7 +12,11 @@ Inspired by [prognostikos][4]'s [project][5].
 ## Usage
 
 ```
+# BUILD ALL THE THINGS
 vagrant up
+
+# Build single recipe
+RECIPE=recipes/golang/1.4.rb vagrant up
 ```
 
 Voilà !

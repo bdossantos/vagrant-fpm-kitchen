@@ -1,5 +1,6 @@
 task :build do
-  Dir.glob('recipes/*/{recipe,[0-9]*}.rb') do |file|
+  recipe = ENV['recipe'] || 'recipes/*/{recipe,[0-9]*}.rb'
+  Dir.glob(recipe) do |file|
     system "fpm-cook clean #{file} && " \
            "sudo fpm-cook install-deps #{file} && " \
            "fpm-cook package #{file} && " \
