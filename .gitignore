@@ -1,3 +1,4 @@
 recipes/*/cache
 recipes/*/pkg
 recipes/*/tmp*
+.DS_Store
