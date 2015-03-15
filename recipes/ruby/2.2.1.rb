@@ -1,14 +1,13 @@
-class Ruby200 < FPM::Cookery::Recipe
+class Ruby221 < FPM::Cookery::Recipe
 
-  description 'The Ruby virtual machine v2.0.0 with patch 643'
+  description 'The Ruby virtual machine v2.2.1'
 
   name        'ruby'
-  version     '2.0.0'
-  patch       'p643'
+  version     '2.2.1'
   revision    Time.now.strftime("%d%m%Y")
   homepage    'http://www.ruby-lang.org/'
-  source      "http://cache.ruby-lang.org/pub/ruby/ruby-#{version}-#{patch}.tar.gz"
-  sha256      '4bd267a4187e4bc25c1db08f9f9bdc0ce595a705569cac460d98c4f5b02e614e'
+  source      "http://cache.ruby-lang.org/pub/ruby/ruby-#{version}.tar.gz"
+  sha256      '5a4de38068eca8919cb087d338c0c2e3d72c9382c804fb27ab746e6c7819ab28'
   maintainer  '<doka@wepoca.net>'
   vendor      'fpm'
   section     'interpreters'
