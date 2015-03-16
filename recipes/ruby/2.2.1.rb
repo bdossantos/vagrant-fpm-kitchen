@@ -1,4 +1,4 @@
-class Ruby220 < FPM::Cookery::Recipe
+class Ruby221 < FPM::Cookery::Recipe
   description 'Ruby is a dynamic, reflective, object-oriented, general-purpose programming language.'
 
   name 'ruby'
