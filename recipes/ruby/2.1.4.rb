@@ -14,17 +14,15 @@ class Ruby214 < FPM::Cookery::Recipe
   section 'interpreters'
 
   platforms [:ubuntu, :debian] do
-    build_depends 'autoconf', 'libreadline6-dev', 'bison', 'zlib1g-dev',
-                  'libssl-dev', 'libyaml-dev', 'libffi-dev', 'libgdbm-dev',
-                  'libncurses5-dev', 'libxml2-dev', 'libxslt1-dev', 'libc6-dev'
+    build_depends 'libreadline6-dev', 'libssl-dev', 'libyaml-dev',
+                  'libffi-dev', 'libgdbm-dev', 'libncurses5-dev'
 
-    depends 'libffi5', 'libncurses5', 'libreadline6', 'libyaml-0-2', 'zlib1g',
-            'libc6', 'libgdbm3'
+    depends 'libffi5', 'libncurses5', 'libreadline6', 'libyaml-0-2','libgdbm3'
 
     if Facter.value(:lsbdistcodename) == 'squeeze'
       depends.push('libssl0.9.8')
     else
-      depends.push('libssl1.0.0', 'libtinfo5')
+      depends.push('libssl1.0.0')
     end
   end
 
