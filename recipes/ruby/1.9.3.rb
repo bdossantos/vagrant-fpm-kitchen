@@ -1,12 +1,12 @@
-class Ruby200 < FPM::Cookery::Recipe
+class Ruby193 < FPM::Cookery::Recipe
   description 'Ruby is a dynamic, reflective, object-oriented, general-purpose programming language.'
 
   name 'ruby'
-  version '1:2.0.0.643'
+  version '1:1.9.3.551'
   revision 0
   homepage 'http://www.ruby-lang.org/'
-  source 'http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p643.tar.gz'
-  sha256 '4bd267a4187e4bc25c1db08f9f9bdc0ce595a705569cac460d98c4f5b02e614e'
+  source 'http://cache.ruby-lang.org/pub/ruby/2.0/ruby-1.9.3-p551.tar.gz'
+  sha256 'bb5be55cd1f49c95bb05b6f587701376b53d310eb1bb7c76fbd445a1c75b51e8'
 
   section 'interpreters'
 
