@@ -3,7 +3,7 @@ class Ruby211 < FPM::Cookery::Recipe
 
   name 'ruby'
   version '1:2.1.1'
-  revision 0
+  revision Time.now.strftime("%d%m%Y")
   homepage 'http://www.ruby-lang.org/'
   source 'http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz'
   sha256 'c843df31ae88ed49f5393142b02b9a9f5a6557453805fd489a76fbafeae88941'

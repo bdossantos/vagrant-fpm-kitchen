@@ -3,7 +3,7 @@ class NodeJS < FPM::Cookery::Recipe
 
   name     'nodejs'
   version  '0.10.26'
-  revision 0
+  revision Time.now.strftime("%d%m%Y")
   homepage 'http://nodejs.org/'
   source   "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
   sha256   'ef5e4ea6f2689ed7f781355012b942a2347e0299da0804a58de8e6281c4b1daa'
