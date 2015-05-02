@@ -16,9 +16,9 @@ class Ruby212 < FPM::Cookery::Recipe
   platforms [:ubuntu, :debian] do
     build_depends 'libreadline6-dev', 'libssl-dev', 'libyaml-dev',
                   'libffi-dev', 'libgdbm-dev', 'libncurses5-dev'
-  
+
     depends 'libffi5', 'libncurses5', 'libreadline6', 'libyaml-0-2','libgdbm3'
-  
+
     if Facter.value(:lsbdistcodename) == 'squeeze'
       depends.push('libssl0.9.8')
     else
