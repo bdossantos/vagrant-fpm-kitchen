@@ -2,11 +2,11 @@ class SensuCommunityPlugins < FPM::Cookery::Recipe
   description 'Sensu community plugins'
 
   name 'sensu-community-plugins'
-  version '0.0.1'
+  version '0.0.2'
 
   source 'https://github.com/sensu/sensu-community-plugins', \
          :with => :git, \
-         :hash => '2fcc571aea829bcb29f78b0f43d8dfce9861edbb'
+         :hash => '8161de67862bfd052cdfe9b13392621937ac7c53'
 
   build_depends 'libmysqlclient-dev', 'libpq-dev'
 
