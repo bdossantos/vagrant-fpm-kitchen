@@ -15,7 +15,7 @@ class BackupOmnibus < FPM::Cookery::Recipe
 
   omnibus_package true
   omnibus_dir "/opt/#{name}"
-  omnibus_recipes '../ruby/2.2.2',
+  omnibus_recipes '../ruby/2.2',
                   'backup'
 
   def build
