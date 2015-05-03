@@ -15,7 +15,7 @@ class SensuOmnibus < FPM::Cookery::Recipe
 
   omnibus_package true
   omnibus_dir "/opt/#{name}"
-  omnibus_recipes '../ruby/2.1.5',
+  omnibus_recipes '../ruby/2.1',
                   'sensu-community-plugins'
 
   def build
