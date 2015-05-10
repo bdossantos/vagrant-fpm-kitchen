@@ -1,0 +1,94 @@
+#!/usr/bin/env sh
+
+### BEGIN INIT INFO
+# Provides:          mcrouter
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Should-Start:      $local_fs
+# Should-Stop:       $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop mcrouter
+# Description:       Start/stop mcrouter
+### END INIT INFO
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+MCROUTER_EXEC='/usr/bin/mcrouter'
+MCROUTER_PID='/var/run/mcrouter.pid'
+MCROUTER_CONF='/etc/mcrouter/mcrouter.json'
+MCROUTER_VERBOSITY=4
+MCROUTER_LOG_PATH='/var/log/mcrouter/mcrouter.log'
+MCROUTER_STATS_ROOT='/var/mcrouter/stats'
+MCROUTER_PORT=5000
+MCROUTER_OPTIONS="-f ${MCROUTER_CONF} -p ${MCROUTER_PID} -v ${MCROUTER_VERBOSITY} -L ${MCROUTER_LOG_PATH} --stats-root ${MCROUTER_STATS_ROOT} -p ${MCROUTER_PORT}"
+MAX_FDS=100000
+
+if [ -f /etc/default/mcrouter ];then
+  . /etc/default/mcrouter
+fi
+
+start() {
+  echo "Starting mcrouter server"
+
+  test -n ${MAX_FDS} && ulimit -n ${MAX_FDS} >/dev/null
+  touch $MCROUTER_PID && chown nobody:nogroup $MCROUTER_PID
+  chown nobody:nogroup /var/log/mcrouter
+  chown nobody:nogroup /var/spool/mcrouter
+
+  start-stop-daemon --start \
+                    --background \
+                    --quiet \
+                    --pidfile ${MCROUTER_PID} \
+                    --make-pidfile \
+                    --umask 007 \
+                    --chuid nobody:nogroup \
+                    --startas ${MCROUTER_EXEC} -- ${MCROUTER_OPTIONS}
+
+  return $?
+}
+
+stop() {
+  echo "Stopping mcrouter server"
+  start-stop-daemon --stop --quiet --pidfile "${MCROUTER_PID}"
+
+  retval=$?
+  if [ $retval -eq 0 ] ; then
+    rm -f "${MCROUTER_PID}"
+  fi
+}
+
+restart() {
+  stop
+  start
+}
+
+reload() {
+  log_daemon_msg "Reloading mcrouter server"
+  start-stop-daemon --stop --signal HUP --quiet --pidfile "${MCROUTER_PID}" \
+                    --exec ${MCROUTER_EXEC}
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status_of_proc -p ${PIDFILE} "${DAEMON}" mcrouter && exit 0 || exit $?
+    ;;
+  restart)
+    restart
+    ;;
+  reload)
+    reload
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart|reload}"
+    exit 3
+esac
+
+exit $?

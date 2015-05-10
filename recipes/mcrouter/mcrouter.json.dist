@@ -1,0 +1,21 @@
+// https://github.com/facebook/mcrouter/wiki/Replicated-pools-setup
+{
+   "pools": {
+      "A": {
+         "servers": [
+           // hosts of replicated pool, e.g.:
+           "127.0.0.1:12345",
+           "[::1]:12346"
+         ]
+      }
+   },
+   "route": {
+     "type": "OperationSelectorRoute",
+     "operation_policies": {
+       "add": "AllSyncRoute|Pool|A",
+       "delete": "AllSyncRoute|Pool|A",
+       "get": "LatestRoute|Pool|A",
+       "set": "AllSyncRoute|Pool|A"
+     }
+   }
+ }
