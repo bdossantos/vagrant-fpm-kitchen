@@ -15,14 +15,20 @@ class Mcrouter < FPM::Cookery::Recipe
   chain_recipes ['../glog/0.3.4', '../folly/0.37.0']
 
   build_depends 'gcc', 'g++', 'libboost-dev', 'libboost-thread1.55-dev',
-                'libboost1.55-dev', 'libboost-thread1.55-dev',
-                'libboost-filesystem1.55-dev', 'libboost-system1.55-dev',
-                'libboost-regex1.55-dev', 'libboost-python1.55-dev',
-                'libboost-context1.55-dev', 'automake', 'libtool', 'ragel',
-                'libboost-dev', 'cmake', 'libtool', 'python-dev', 'cmake',
-                'libssl-dev', 'libcap-dev', 'libevent-dev', 'libgtest-dev',
-                'libsnappy-dev', 'scons', 'binutils-dev', 'make',
-                'libgflags-dev', 'libdouble-conversion-dev'
+                'libboost1.55-dev', 'libboost-filesystem1.55-dev',
+                'libboost-system1.55-dev', 'libboost-regex1.55-dev',
+                'libboost-python1.55-dev', 'libboost-context1.55-dev',
+                'automake', 'libtool', 'ragel', 'libboost-dev', 'cmake',
+                'libtool', 'python-dev', 'cmake', 'libssl-dev', 'libcap-dev',
+                'libevent-dev', 'libgtest-dev', 'libsnappy-dev', 'scons',
+                'binutils-dev', 'make', 'libgflags-dev',
+                'libdouble-conversion-dev'
+
+  depends 'libdouble-conversion1', 'libgflags2', 'libboost-thread1.55.0',
+          'libboost-filesystem1.55.0', 'libboost-system1.55.0',
+          'libboost-regex1.55.0', 'libboost-python1.55.0',
+          'libboost-context1.55.0', 'libevent-2.0-5', 'libsnappy1', 'liblz4-1',
+          'libjemalloc1'
 
   def build
     Dir.chdir('mcrouter') do
@@ -39,7 +45,7 @@ class Mcrouter < FPM::Cookery::Recipe
     (etc/'init.d').install_p(workdir/'mcrouter.init', 'mcrouter')
     (etc/'mcrouter').install_p(workdir/'mcrouter.json.dist', 'mcrouter.json.dist')
     Dir.chdir('mcrouter') do
-      make :install
+      make :install, 'DESTDIR' => destdir
     end
   end
 end
