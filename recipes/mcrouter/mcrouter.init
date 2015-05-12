@@ -36,6 +36,7 @@ start() {
   touch $MCROUTER_PID && chown nobody:nogroup $MCROUTER_PID
   chown nobody:nogroup /var/log/mcrouter
   chown nobody:nogroup /var/spool/mcrouter
+  chown nobody:nogroup /var/mcrouter/stats
 
   start-stop-daemon --start \
                     --background \
