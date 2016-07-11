@@ -2,7 +2,7 @@ class PuppetGem < FPM::Cookery::Recipe
   description 'Backup Gem'
 
   name 'backup'
-  version '4.2.2'
+  version '4.3.0'
 
   source 'nothing', :with => :noop
 

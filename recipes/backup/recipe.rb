@@ -2,7 +2,7 @@ class BackupOmnibus < FPM::Cookery::Recipe
   description 'Provide an elegant DSL in Ruby for performing backups on UNIX-like systems.'
 
   name 'backup'
-  version '1:4.2.2'
+  version '1:4.3.0'
   revision 0
   homepage 'https://github.com/meskyanichi/backup'
 
@@ -15,7 +15,7 @@ class BackupOmnibus < FPM::Cookery::Recipe
 
   omnibus_package true
   omnibus_dir "/opt/#{name}"
-  omnibus_recipes '../ruby/2.2',
+  omnibus_recipes '../ruby/2.3',
                   'backup'
 
   def build
