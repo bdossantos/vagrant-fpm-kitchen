@@ -2,12 +2,14 @@ class PuppetGem < FPM::Cookery::Recipe
   description 'Backup Gem'
 
   name 'backup'
-  version '4.3.0'
+  version '4.5.0-alpha.1'
 
   source 'nothing', :with => :noop
 
   def build
-    gem_install name, version
+    gem_install 'specific_install'
+    cleanenv_safesystem "#{destdir}/bin/gem specific_install https://github.com/seedtag/backup 39916295966b683f91e50660d91c016b90b7e655"
+    #gem_install name, version
   end
 
   def install
